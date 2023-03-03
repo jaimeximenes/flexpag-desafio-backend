@@ -1,7 +1,7 @@
 package com.flexpag.paymentscheduler.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.xml.bind.v2.model.core.ID;
+import org.yaml.snakeyaml.events.Event;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class PaymentScheduler {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private ID id;
+    private Event.ID id;
 
     @Column(nullable = false, columnDefinition = "Date")
     @JsonFormat(pattern = "dd/mm/yyyy")
