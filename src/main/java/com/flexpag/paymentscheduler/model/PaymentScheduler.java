@@ -22,7 +22,10 @@ public class PaymentScheduler {
     @Column(nullable = false, columnDefinition = "Date")
     @JsonFormat(pattern = "dd/mm/yyyy")
     private LocalDate paymentSchedullerDate;
+    @Column(nullable = false)
+    private Double amountToPay;
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private PaymentStatusEnum status;
 
 }
