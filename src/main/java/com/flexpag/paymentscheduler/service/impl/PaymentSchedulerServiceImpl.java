@@ -21,13 +21,14 @@ public class PaymentSchedulerServiceImpl implements PaymentSchedulerService {
     PaymentSchedulerBuilder paymentSchedulerBuilder;
 
     @Override
-    public PaymentSchedulerDTO createPaymentScheduler(PaymentSchedulerDTO paymentSchedulerDTO) {
+    public Long createPaymentScheduler(PaymentSchedulerDTO paymentSchedulerDTO) {
         try {
             paymentSchedulerDTO.setStatus(PaymentStatusEnum.pending);
+            paymentSchedulerDTO.setRegistrationDate(LocalDateTime.now());
             PaymentScheduler paymentSchedulerSaved =
                     paymentSchedulerRepository.save(paymentSchedulerBuilder.
                             buildPaymentScheduler(paymentSchedulerDTO));
-            return paymentSchedulerBuilder.buildPaymentSchedulerCreate(paymentSchedulerSaved);
+            return paymentSchedulerSaved.getId();
         } catch (DataIntegrityViolationException d) {
             throw new RuntimeException("Excpetion criada");
         } catch (Exception e) {

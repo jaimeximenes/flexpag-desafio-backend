@@ -21,9 +21,9 @@ public class PaymentSchedulerController {
     PaymentSchedulerService paymentSchedulerService;
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody PaymentSchedulerDTO paymentSchedulerDTO) {
+    public ResponseEntity<Long> create(@RequestBody PaymentSchedulerDTO paymentSchedulerDTO) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(paymentSchedulerService.createPaymentScheduler(paymentSchedulerDTO).getId());
+                .body(paymentSchedulerService.createPaymentScheduler(paymentSchedulerDTO));
     }
 
     @GetMapping(value = "/status/{id}")

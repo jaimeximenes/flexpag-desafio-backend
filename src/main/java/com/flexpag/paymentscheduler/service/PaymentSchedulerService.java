@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public interface PaymentSchedulerService {
 
-    PaymentSchedulerDTO createPaymentScheduler(PaymentSchedulerDTO paymentScheduler);
+    Long createPaymentScheduler(PaymentSchedulerDTO paymentScheduler);
 
     PaymentStatusEnum findStatusByPaymentSchedulerId(Long id);
 

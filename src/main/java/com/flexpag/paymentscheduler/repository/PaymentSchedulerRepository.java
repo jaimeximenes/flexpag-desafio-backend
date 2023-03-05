@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public interface PaymentSchedulerRepository extends JpaRepository<PaymentScheduler, Long> {
 
+    @Query("SELECT p.status FROM TB_PAYMENT_SCHEDULER p where p.id = :id")
     Optional<PaymentStatusEnum> findStatusById(Long id);
 
     @Query("update TB_PAYMENT_SCHEDULER p set p.schedulerDate = :date where p.id= :id")

@@ -12,11 +12,9 @@ import java.time.LocalDateTime;
 @Builder
 public class PaymentSchedulerDTO {
     private Long id;
-    @JsonFormat(pattern = "dd/mm/yyyy")
-    @NotNull
+
     private LocalDateTime registrationDate;
 
-    @JsonFormat(pattern = "dd/mm/yyyy")
     @NotNull
     private LocalDateTime paymentSchedulerDate;
     @NotNull
