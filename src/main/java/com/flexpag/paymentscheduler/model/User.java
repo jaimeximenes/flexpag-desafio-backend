@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Event.ID id;
+    private Long id;
     @Column(nullable = false, unique = true, length = 60)
     private String name;
     @Column(nullable = false, unique = true, length = 60)

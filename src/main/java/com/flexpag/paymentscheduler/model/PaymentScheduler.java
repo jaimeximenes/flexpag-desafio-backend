@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class PaymentScheduler {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Event.ID id;
+    private Long id;
 
     @Column(nullable = false, columnDefinition = "Date")
     @JsonFormat(pattern = "dd/mm/yyyy")
