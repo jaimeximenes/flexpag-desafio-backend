@@ -1,27 +1,25 @@
 package com.flexpag.paymentscheduler.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.yaml.snakeyaml.events.Event;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Data
 @Entity(name = "TB_PAYMENT_SCHEDULER")
+@Builder
 public class PaymentScheduler {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, columnDefinition = "Date")
-    @JsonFormat(pattern = "dd/mm/yyyy")
-    private LocalDate registratioDate;
+    private LocalDateTime registrationDate;
 
     @Column(nullable = false, columnDefinition = "Date")
-    @JsonFormat(pattern = "dd/mm/yyyy")
-    private LocalDate paymentSchedullerDate;
+    private LocalDateTime schedulerDate;
     @Column(nullable = false)
     private Double amountToPay;
     @Enumerated(EnumType.STRING)

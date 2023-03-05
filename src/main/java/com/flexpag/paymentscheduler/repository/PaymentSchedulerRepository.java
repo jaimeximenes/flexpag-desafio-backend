@@ -1,11 +1,19 @@
 package com.flexpag.paymentscheduler.repository;
 
 import com.flexpag.paymentscheduler.model.PaymentScheduler;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
+import com.flexpag.paymentscheduler.model.PaymentStatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.yaml.snakeyaml.events.Event.ID;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 public interface PaymentSchedulerRepository extends JpaRepository<PaymentScheduler, Long> {
-    Page<PaymentScheduler> findAll(Pageable pageable);
+
+    Optional<PaymentStatusEnum> findStatusById(Long id);
+
+    @Query("update TB_PAYMENT_SCHEDULER p set p.schedulerDate = :date where p.id= :id")
+    void updateSchedulerDateById(@Param("id") Long id, @Param("date") LocalDateTime date);
 }
