@@ -10,8 +10,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -44,5 +46,37 @@ public class PaymentSchedulerController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<Optional<PaymentScheduler>> getPaymentSchedulerById(@PathVariable("id") Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(paymentSchedulerRepository.findById(id));
+    }
+
+    @PutMapping
+    public ResponseEntity<Object> updatePaymentSchedulerById(@RequestBody PaymentScheduler paymentScheduler) {
+        if (paymentSchedulerRepository.existsById(paymentScheduler.getId())) {
+            return ResponseEntity.status(HttpStatus.OK).body(paymentSchedulerRepository.save(paymentScheduler));
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Este agendamento não existe!");
+    }
+
+    @PutMapping
+    public ResponseEntity<Object> updatePaymentSchedulerDate(@RequestBody PaymentScheduler paymentScheduler) {
+        if (paymentScheduler.getStatus().equals(PaymentStatusEnum.pending)) {
+
+            if (paymentSchedulerRepository.existsById(paymentScheduler.getId())) {
+                return ResponseEntity.status(HttpStatus.OK).body(paymentSchedulerRepository.save(paymentScheduler));
+            }
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Você não pode atualizar este agendamento.");
+    }
+
+    @DeleteMapping(value = {"/{id}"})
+    public ResponseEntity<String> deletePaymentSchedulerById(
+            @PathVariable("id") Long id, PaymentScheduler paymentScheduler) {
+
+        if (paymentScheduler.getStatus().equals(PaymentStatusEnum.pending)) {
+            if (paymentSchedulerRepository.existsById(paymentScheduler.getId())) {
+                paymentSchedulerRepository.deleteById(id);
+            }
+            return ResponseEntity.status(HttpStatus.OK).body("Excluido com sucesso!");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Você não pode Excluir este agendamento.");
     }
 }
