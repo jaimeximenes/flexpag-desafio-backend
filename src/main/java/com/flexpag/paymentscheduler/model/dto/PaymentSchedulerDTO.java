@@ -1,6 +1,5 @@
 package com.flexpag.paymentscheduler.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.flexpag.paymentscheduler.model.PaymentStatusEnum;
 import com.sun.istack.NotNull;
 import lombok.Builder;

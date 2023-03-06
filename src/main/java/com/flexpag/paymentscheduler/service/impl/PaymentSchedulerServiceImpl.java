@@ -30,9 +30,9 @@ public class PaymentSchedulerServiceImpl implements PaymentSchedulerService {
                             buildPaymentScheduler(paymentSchedulerDTO));
             return paymentSchedulerSaved.getId();
         } catch (DataIntegrityViolationException d) {
-            throw new RuntimeException("Excpetion criada");
+            throw new RuntimeException("Verifique as informações do agendamento.");
         } catch (Exception e) {
-            throw new RuntimeException("Excpetion criada");
+            throw new RuntimeException("Excpetion");
         }
     }
 
@@ -40,9 +40,9 @@ public class PaymentSchedulerServiceImpl implements PaymentSchedulerService {
         try {
             return paymentSchedulerRepository.findStatusById(id).orElseThrow();
         } catch (DataIntegrityViolationException d) {
-            throw new RuntimeException("Excpetion criada");
+            throw new RuntimeException("status não encontrado.");
         } catch (Exception e) {
-            throw new RuntimeException("Excpetion criada");
+            throw new RuntimeException("Excpetion");
         }
     }
 
@@ -56,10 +56,13 @@ public class PaymentSchedulerServiceImpl implements PaymentSchedulerService {
     }
 
     public void updatePaymentSchedulerDateById(Long id, LocalDateTime date) {
-        var status = findStatusById(id);
-        if (status.equals(PaymentStatusEnum.pending)) {
-            paymentSchedulerRepository.updateSchedulerDateById(id, date);
+        var paymentScheduler = paymentSchedulerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Agendamento não encontrado!"));
+        if (PaymentStatusEnum.pending.equals(paymentScheduler.getStatus())) {
+            paymentScheduler.setSchedulerDate(date);
+            paymentSchedulerRepository.save(paymentScheduler);
         }
+
     }
 
     private PaymentStatusEnum findStatusById(Long id) {
