@@ -51,7 +51,7 @@ public class PaymentSchedulerServiceImpl implements PaymentSchedulerService {
         if (status.equals(PaymentStatusEnum.pending)) {
             paymentSchedulerRepository.deleteById(id);
         } else {
-            throw new RuntimeException();
+            throw new RuntimeException("Esse id não existe");
         }
     }
 
