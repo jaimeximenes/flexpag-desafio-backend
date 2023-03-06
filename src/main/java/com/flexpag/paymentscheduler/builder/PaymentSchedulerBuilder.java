@@ -14,10 +14,4 @@ public class PaymentSchedulerBuilder {
                 .status(dto.getStatus())
                 .build();
     }
-
-    public PaymentSchedulerDTO buildPaymentSchedulerCreate(PaymentScheduler paymentScheduler) {
-        return PaymentSchedulerDTO.builder()
-                .id(paymentScheduler.getId())
-                .build();
-    }
 }
